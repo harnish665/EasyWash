@@ -7,141 +7,130 @@
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      line-height: 1.4;
-      background-color: #f8f9fa;
+      background-color: #f5f7fa;
       color: #333;
-      padding: 15px;
-      max-width: 900px;
+      padding: 20px;
+      max-width: 800px;
       margin: 0 auto;
-      font-size: 16px;
     }
     .container {
       background-color: white;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 25px 5px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     h1 {
       color: #0077b6;
       text-align: center;
-      margin-bottom: 10px;
-      font-size: 1.3em;
+      margin-bottom: 20px;
     }
     .customer-info {
-      margin-bottom: 10px;
-      padding: 10px;
-      background-color: #f2f9ff;
-      border-radius: 6px;
+      margin-bottom: 20px;
+      padding: 15px;
+      background-color: #f0f8ff;
+      border-radius: 8px;
     }
     .customer-info input {
       width: 100%;
-      padding: 6px;
-      margin: 4px 0;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 15px;
     }
     .order-table {
-      width: 100%;
+      width: 80%;
       border-collapse: collapse;
-      font-size: 14px;
-      margin: 10px 0;
+      margin: 20px 0;
     }
-    .order-table thead th {
+    .order-table th {
       background-color: #0077b6;
       color: white;
-      padding: 8px;
-      text-align: left;
-      font-weight: normal;
+      padding: 10px 5px;
+      text-align: center;
     }
     .order-table td {
-      padding: 6px;
-      border-bottom: 1px solid #ddd;
+      padding: 12px;
+      border-bottom: 1px solid #eee;
     }
     .order-table tr:nth-child(even) {
-      background-color: #f2f9ff;
+      background-color: #f8faff;
     }
     input[type="number"] {
-      width: 40px;
-      padding: 4px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 13px;
+      width: 20px;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
     }
-    input[type="checkbox"] {
-      transform: scale(0.9);
+    input[type="text"] {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      width: 100px;
+    }
+    select {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      max-width: 103px;
     }
     .submit-btn {
-      display: block;
       width: 100%;
-      padding: 8px;
+      padding: 12px;
       background-color: #00b4d8;
       color: white;
       border: none;
-      border-radius: 4px;
-      font-size: 15px;
+      border-radius: 5px;
+      font-size: 16px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      margin-top: 15px;
     }
     .submit-btn:hover {
       background-color: #0096c7;
     }
-    .others-input {
-      width: 80px;
-      padding: 4px;
-      margin-top: 2px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 13px;
+    .total-display {
+      text-align: right;
+      font-size: 18px;
+      margin: 20px 0;
     }
     .confirmation {
       display: none;
-      margin-top: 10px;
-      padding: 10px;
+      padding: 15px;
       background: #e8f5e9;
-      border-radius: 6px;
+      border-radius: 8px;
       text-align: center;
+      margin-top: 20px;
     }
     .order-link {
       display: inline-block;
-      margin: 6px 0;
-      padding: 6px 10px;
+      margin: 10px 0;
+      padding: 10px 15px;
       background: #0077b6;
       color: white;
       text-decoration: none;
-      border-radius: 4px;
-      word-break: break-all;
-      font-size: 14px;
+      border-radius: 5px;
+    }
+    .note {
+      font-size: 13px;
+      color: #666;
+      font-style: italic;
+      margin-top: 5px;
     }
     .order-view {
       display: none;
-      margin-top: 15px;
-      padding: 10px;
+      margin-top: 20px;
+      padding: 20px;
       background: white;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-    }
-    .total-row {
-      font-weight: bold;
-      background-color: #e3f2fd !important;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     .price {
       text-align: right;
       padding-right: 10px;
     }
-    label {
-      display: block;
-      margin-bottom: 2px;
-      font-size: 13px;
-    }
-    .others-note {
-      font-size: 12px;
-      color: #666;
-      font-style: italic;
-    }
-    .checkbox-label {
-      display: inline-block;
-      margin-left: 3px;
+    .total-row {
+      font-weight: bold;
+      background-color: #e3f2fd !important;
     }
   </style>
 </head>
@@ -150,22 +139,18 @@
     <h1>🧺 EasyWash Laundry Services</h1>
     
     <div class="customer-info">
-      <h3>Your Information</h3>
-      <label for="customerName">Full Name:</label>
-      <input type="text" id="customerName" placeholder="Your name" required>
-      <label for="customerPhone">Phone Number:</label>
-      <input type="tel" id="customerPhone" placeholder="Your phone" required>
+      <h3>Customer Information</h3>
+      <input type="text" id="customerName" placeholder="Name" required>
+      <input type="tel" id="customerPhone" placeholder="Phone Number" required>
     </div>
     
     <table class="order-table">
       <thead>
         <tr>
           <th>Cloth Type</th>
-          <th>Wash & Press</th>
-          <th>Wash,Starch & Press</th>
-          <th>Starch & Press Only</th>
-          <th>Press Only</th>
-          <th class="price">Price (₦)</th>
+          <th>Quantity</th>
+          <th>Service Type</th>
+          <th>(₦)</th>
         </tr>
       </thead>
       <tbody>
@@ -173,124 +158,201 @@
         <tr>
           <td>Natives/Kaftans</td>
           <td><input type="number" min="0" value="0" class="qty-input"></td>
-          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
-          <td><input type="checkbox" class="starch-press-toggle"></td>
-          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press (₦600)</option>
+              <option value="wash-starch-press">Wash, Starch & Press (₦800)</option>
+              <option value="starch-press">Starch & Press Only (₦500)</option>
+              <option value="press-only">Press Only (₦400)</option>
+            </select>
+          </td>
           <td class="price item-price">0</td>
         </tr>
         <tr>
           <td>Tops/shirt/Tees</td>
           <td><input type="number" min="0" value="0" class="qty-input"></td>
-          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
-          <td><input type="checkbox" class="starch-press-toggle"></td>
-          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press (₦400)</option>
+              <option value="wash-starch-press">Wash, Starch & Press (₦500)</option>
+              <option value="starch-press">Starch & Press Only (₦300)</option>
+              <option value="press-only">Press Only (₦200)</option>
+            </select>
+          </td>
           <td class="price item-price">0</td>
         </tr>
         <tr>
           <td>Jean Trouser</td>
           <td><input type="number" min="0" value="0" class="qty-input"></td>
-          <td><input type="checkbox" class="wash-starch-press-toggle" disabled></td>
-          <td><input type="checkbox" class="starch-press-toggle" disabled></td>
-          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press (₦400)</option>
+              <option value="press-only">Press Only (₦200)</option>
+            </select>
+          </td>
           <td class="price item-price">0</td>
         </tr>
         <tr>
-          <td>Pant Trouser 👖</td>
+          <td>Pant Trouser/Chinos</td>
           <td><input type="number" min="0" value="0" class="qty-input"></td>
-          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
-          <td><input type="checkbox" class="starch-press-toggle"></td>
-          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press (₦400)</option>
+              <option value="wash-starch-press">Wash, Starch & Press (₦500)</option>
+              <option value="starch-press">Starch & Press Only (₦300)</option>
+              <option value="press-only">Press Only (₦200)</option>
+            </select>
+          </td>
           <td class="price item-price">0</td>
         </tr>
         <tr>
           <td>Complete Agbada</td>
           <td><input type="number" min="0" value="0" class="qty-input"></td>
-          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
-          <td><input type="checkbox" class="starch-press-toggle"></td>
-          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press (₦1000)</option>
+              <option value="wash-starch-press">Wash, Starch & Press (₦1500)</option>
+              <option value="starch-press">Starch & Press Only (₦900)</option>
+              <option value="press-only">Press Only (₦700)</option>
+            </select>
+          </td>
           <td class="price item-price">0</td>
         </tr>
         <tr>
-          <td>Jalabia</td>
+          <td>Jalabia/Abaya</td>
           <td><input type="number" min="0" value="0" class="qty-input"></td>
-          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
-          <td><input type="checkbox" class="starch-press-toggle"></td>
-          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press (₦400)</option>
+              <option value="wash-starch-press">Wash, Starch & Press (₦500)</option>
+              <option value="starch-press">Starch & Press Only (₦300)</option>
+              <option value="press-only">Press Only (₦200)</option>
+            </select>
+          </td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td>Hoodie</td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press (₦400)</option>
+            </select>
+          </td>
           <td class="price item-price">0</td>
         </tr>
         <tr>
           <td>Shorts</td>
           <td><input type="number" min="0" value="0" class="qty-input"></td>
-          <td><input type="checkbox" class="wash-starch-press-toggle" disabled></td>
-          <td><input type="checkbox" class="starch-press-toggle" disabled></td>
-          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press (₦250)</option>
+              <option value="press-only">Press Only (₦150)</option>
+            </select>
+          </td>
           <td class="price item-price">0</td>
         </tr>
         <tr>
-          <td>Towel</td>
+          <td>Singlets</td>
           <td><input type="number" min="0" value="0" class="qty-input"></td>
-          <td><input type="checkbox" class="wash-starch-press-toggle" disabled></td>
-          <td><input type="checkbox" class="starch-press-toggle" disabled></td>
-          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press (₦200)</option>
+            </select>
+          </td>
           <td class="price item-price">0</td>
         </tr>
         <tr>
-          <td>Bedspread</td>
+          <td>Cap</td>
           <td><input type="number" min="0" value="0" class="qty-input"></td>
-          <td><input type="checkbox" class="wash-starch-press-toggle" disabled></td>
-          <td><input type="checkbox" class="starch-press-toggle" disabled></td>
-          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press (₦200)</option>
+              <option value="wash-starch-press">Wash, Starch & Press (₦300)</option>
+            </select>
+          </td>
           <td class="price item-price">0</td>
         </tr>
         <tr>
-          <td>Duvet</td>
+          <td>Socks</td>
           <td><input type="number" min="0" value="0" class="qty-input"></td>
-          <td><input type="checkbox" class="wash-starch-press-toggle" disabled></td>
-          <td><input type="checkbox" class="starch-press-toggle" disabled></td>
-          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press (₦100)</option>
+            </select>
+          </td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td>Sneakers</td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press (₦500)</option>
+            </select>
+          </td>
           <td class="price item-price">0</td>
         </tr>
         
-        <!-- Additional Others Items -->
+        <!-- Others Categories -->
         <tr>
-          <td>Others 1 <input type="text" class="others-input" placeholder="Item name"></td>
+          <td><input type="text" class="others-input" placeholder="Other item 1"></td>
           <td><input type="number" min="0" value="0" class="qty-input"></td>
-          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
-          <td><input type="checkbox" class="starch-press-toggle"></td>
-          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press</option>
+              <option value="wash-starch-press">Wash, Starch & Press</option>
+              <option value="starch-press">Starch & Press Only</option>
+              <option value="press-only">Press Only</option>
+            </select>
+          </td>
           <td class="price item-price">0</td>
         </tr>
         <tr>
-          <td>Others 2 <input type="text" class="others-input" placeholder="Item name"></td>
+          <td><input type="text" class="others-input" placeholder="Other item 2"></td>
           <td><input type="number" min="0" value="0" class="qty-input"></td>
-          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
-          <td><input type="checkbox" class="starch-press-toggle"></td>
-          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press</option>
+              <option value="wash-starch-press">Wash, Starch & Press</option>
+              <option value="starch-press">Starch & Press Only</option>
+              <option value="press-only">Press Only</option>
+            </select>
+          </td>
           <td class="price item-price">0</td>
         </tr>
         <tr>
-          <td>Others 3 <input type="text" class="others-input" placeholder="Item name"></td>
+          <td><input type="text" class="others-input" placeholder="Other item 3"></td>
           <td><input type="number" min="0" value="0" class="qty-input"></td>
-          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
-          <td><input type="checkbox" class="starch-press-toggle"></td>
-          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press</option>
+              <option value="wash-starch-press">Wash, Starch & Press</option>
+              <option value="starch-press">Starch & Press Only</option>
+              <option value="press-only">Press Only</option>
+            </select>
+          </td>
           <td class="price item-price">0</td>
         </tr>
         <tr>
-          <td>Others 4 <input type="text" class="others-input" placeholder="Item name"></td>
+          <td><input type="text" class="others-input" placeholder="Other item 4"></td>
           <td><input type="number" min="0" value="0" class="qty-input"></td>
-          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
-          <td><input type="checkbox" class="starch-press-toggle"></td>
-          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td>
+            <select class="service-select">
+              <option value="wash-press">Wash & Press</option>
+              <option value="wash-starch-press">Wash, Starch & Press</option>
+              <option value="starch-press">Starch & Press Only</option>
+              <option value="press-only">Press Only</option>
+            </select>
+          </td>
           <td class="price item-price">0</td>
-        </tr>
-        <tr>
-          <td colspan="6" class="others-note">Note: Price for "Others" items will be confirmed after inspection</td>
         </tr>
       </tbody>
     </table>
     
-    <div class="total-display" style="text-align: right; margin: 10px 0; font-size: 1em;">
+    <div class="note">Note: Prices for "Other" items will be calculated manually</div>
+    
+    <div class="total-display">
       <strong>Total: ₦<span id="orderTotal">0</span></strong>
     </div>
     
@@ -312,146 +374,118 @@
       <thead>
         <tr>
           <th>Item</th>
-          <th>Wash & Press</th>
-          <th>Wash,Starch & Press</th>
-          <th>Starch & Press Only</th>
-          <th>Press Only</th>
-          <th class="price">Price (₦)</th>
+          <th>Quantity</th>
+          <th>Service Type</th>
+          <th>Price (₦)</th>
         </tr>
       </thead>
       <tbody></tbody>
       <tfoot>
         <tr class="total-row">
-          <td colspan="5"><strong>Total</strong></td>
+          <td colspan="3"><strong>Total</strong></td>
           <td class="price"><strong id="viewOrderTotal">0</strong></td>
         </tr>
       </tfoot>
     </table>
-    <button onclick="window.location.href='#'" class="submit-btn" style="margin-top:10px;">
+    <button onclick="window.location.href=window.location.href.split('?')[0]" class="submit-btn" style="margin-top:15px;">
       Create New Order
     </button>
   </div>
 
   <script>
-    // Pricing configuration
     const PRICES = {
       "Natives/Kaftans": {
-        "Wash & Press": 600,
-        "Wash,Starch & Press": 800,
-        "Starch & Press Only": 500,
-        "Press Only": 400
+        "wash-press": 600,
+        "wash-starch-press": 800,
+        "starch-press": 500,
+        "press-only": 400
       },
       "Tops/shirt/Tees": {
-        "Wash & Press": 400,
-        "Wash,Starch & Press": 500,
-        "Starch & Press Only": 300,
-        "Press Only": 200
+        "wash-press": 400,
+        "wash-starch-press": 500,
+        "starch-press": 300,
+        "press-only": 200
       },
       "Jean Trouser": {
-        "Wash & Press": 400,
-        "Press Only": 200
+        "wash-press": 400,
+        "press-only": 200
       },
-      "Pant Trouser": {
-        "Wash & Press": 400,
-        "Wash,Starch & Press": 500,
-        "Starch & Press Only": 300,
-        "Press Only": 200
+      "Pant Trouser/Chinos": {
+        "wash-press": 400,
+        "wash-starch-press": 500,
+        "starch-press": 300,
+        "press-only": 200
       },
       "Complete Agbada": {
-        "Wash & Press": 1000,
-        "Wash,Starch & Press": 1500,
-        "Starch & Press Only": 900,
-        "Press Only": 700
+        "wash-press": 1000,
+        "wash-starch-press": 1500,
+        "starch-press": 900,
+        "press-only": 700
       },
-      "Jalabia": {
-        "Wash & Press": 400,
-        "Wash,Starch & Press": 500,
-        "Starch & Press Only": 300,
-        "Press Only": 200
+      "Jalabia/Abaya": {
+        "wash-press": 400,
+        "wash-starch-press": 500,
+        "starch-press": 300,
+        "press-only": 200
+      },
+      "Hoodie": {
+        "wash-press": 400
       },
       "Shorts": {
-        "Wash & Press": 250,
-        "Press Only": 150
+        "wash-press": 250,
+        "press-only": 150
       },
-      "Towel": {
-        "Wash & Press": 500,
-        "Press Only": 300
+      "Singlets": {
+        "wash-press": 200
       },
-      "Bedspread": {
-        "Wash & Press": 600,
-        "Press Only": 400
+      "Cap": {
+        "wash-press": 200,
+        "wash-starch-press": 300
       },
-      "Duvet": {
-        "Wash & Press": 1500,
-        "Press Only": 1000
+      "Socks": {
+        "wash-press": 100
+      },
+      "Sneakers": {
+        "wash-press": 500
       }
     };
 
-    // Calculate price for a single item
-    function calculateItemPrice(item) {
-      if (item.name.includes("Others") || !Object.keys(PRICES).some(type => item.name.includes(type))) {
-        return 0;
-      }
+    function calculateItemPrice(itemName, serviceType, quantity) {
+      // Always return 0 for custom items
+      if (itemName.startsWith("Other item") || !PRICES[itemName]) return 0;
       
-      const clothType = Object.keys(PRICES).find(type => item.name.includes(type));
-      let serviceType = "";
+      const servicePrices = PRICES[itemName];
+      if (!servicePrices || !servicePrices[serviceType]) return 0;
       
-      if (item.washStarchPress) {
-        serviceType = "Wash,Starch & Press";
-      } else if (item.starchPressOnly) {
-        serviceType = "Starch & Press Only";
-      } else if (item.pressOnly) {
-        serviceType = "Press Only";
-      } else {
-        serviceType = "Wash & Press";
-      }
-
-      const unitPrice = PRICES[clothType][serviceType] || 0;
-      return unitPrice * item.quantity;
+      return servicePrices[serviceType] * quantity;
     }
 
-    // Update prices when inputs change
-    function setupEventListeners() {
-      document.querySelectorAll('.qty-input, .wash-starch-press-toggle, .starch-press-toggle, .press-only-toggle, .others-input').forEach(input => {
-        input.addEventListener('change', updatePrices);
-        if (input.type !== 'checkbox') {
-          input.addEventListener('input', updatePrices);
-        }
-      });
-    }
-
-    // Update all prices in real-time
     function updatePrices() {
       let total = 0;
       
       document.querySelectorAll('tbody tr').forEach(row => {
-        if (row.classList.contains('total-row') || row.querySelector('.others-note')) return;
+        let itemName;
+        const inputField = row.querySelector('.others-input');
         
-        const itemName = row.cells[0].textContent.replace('Others \d', '').trim();
-        const specInput = row.querySelector('.others-input');
-        const finalName = specInput?.value ? specInput.value : itemName;
+        if (inputField && inputField.value) {
+          itemName = inputField.value;
+        } else if (inputField) {
+          itemName = inputField.placeholder;
+        } else {
+          itemName = row.cells[0].textContent;
+        }
         
         const quantity = parseInt(row.querySelector('.qty-input').value) || 0;
-        const washStarchPress = row.querySelector('.wash-starch-press-toggle').checked;
-        const starchPressOnly = row.querySelector('.starch-press-toggle').checked;
-        const pressOnly = row.querySelector('.press-only-toggle').checked;
+        const serviceType = row.querySelector('.service-select').value;
         
-        const price = calculateItemPrice({
-          name: finalName,
-          quantity: quantity,
-          washStarchPress: washStarchPress,
-          starchPressOnly: starchPressOnly,
-          pressOnly: pressOnly
-        });
-        
-        row.querySelector('.item-price').textContent = price.toLocaleString();
+        const price = calculateItemPrice(itemName, serviceType, quantity);
+        row.querySelector('.item-price').textContent = price;
         total += price;
       });
       
-      document.getElementById('orderTotal').textContent = total.toLocaleString();
+      document.getElementById('orderTotal').textContent = total;
     }
 
-    // Submit order function
     function submitOrder() {
       const name = document.getElementById('customerName').value;
       const phone = document.getElementById('customerPhone').value;
@@ -463,43 +497,36 @@
 
       const order = {
         date: new Date().toISOString(),
-        customer: {
-          name: name,
-          phone: phone
-        },
+        customer: { name, phone },
         items: [],
         total: 0
       };
 
       document.querySelectorAll('tbody tr').forEach(row => {
-        if (row.classList.contains('total-row') || row.querySelector('.others-note')) return;
+        let itemName;
+        const inputField = row.querySelector('.others-input');
         
-        const itemName = row.cells[0].textContent.replace('Others \d', '').trim();
-        const specInput = row.querySelector('.others-input');
-        const finalName = specInput?.value ? specInput.value : itemName;
+        if (inputField && inputField.value) {
+          itemName = inputField.value;
+        } else if (inputField) {
+          itemName = inputField.placeholder;
+        } else {
+          itemName = row.cells[0].textContent;
+        }
         
         const quantity = parseInt(row.querySelector('.qty-input').value) || 0;
-        const washStarchPress = row.querySelector('.wash-starch-press-toggle').checked;
-        const starchPressOnly = row.querySelector('.starch-press-toggle').checked;
-        const pressOnly = row.querySelector('.press-only-toggle').checked;
+        const serviceType = row.querySelector('.service-select').value;
         
-        if (quantity > 0 || (specInput && specInput.value)) {
-          const item = {
-            name: finalName,
-            quantity: quantity,
-            washStarchPress: washStarchPress,
-            starchPressOnly: starchPressOnly,
-            pressOnly: pressOnly,
-            price: calculateItemPrice({
-              name: finalName,
-              quantity: quantity,
-              washStarchPress: washStarchPress,
-              starchPressOnly: starchPressOnly,
-              pressOnly: pressOnly
-            })
-          };
-          order.items.push(item);
-          order.total += item.price;
+        if (quantity > 0) {
+          const price = calculateItemPrice(itemName, serviceType, quantity);
+          order.items.push({
+            name: itemName,
+            quantity,
+            serviceType,
+            price,
+            needsManualPrice: itemName.startsWith("Other item") || !PRICES[itemName]
+          });
+          order.total += price;
         }
       });
 
@@ -512,24 +539,16 @@
       document.getElementById('confirmation').style.display = 'block';
       navigator.clipboard.writeText(viewLink);
       
-      // Scroll to confirmation
-      document.getElementById('confirmation').scrollIntoView({ behavior: 'smooth' });
-      
-      // Reset form
-      document.getElementById('customerName').value = '';
-      document.getElementById('customerPhone').value = '';
-      document.querySelectorAll('input[type="number"]').forEach(input => input.value = 0);
-      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
-      document.querySelectorAll('.others-input').forEach(input => input.value = '');
-      updatePrices();
+      // Show the order immediately
+      showOrder(orderId);
     }
 
-    // Show order view
     function showOrder(orderId) {
       const orderData = JSON.parse(localStorage.getItem(orderId));
       if (!orderData) return;
       
       document.getElementById('orderForm').style.display = 'none';
+      document.getElementById('confirmation').style.display = 'none';
       document.getElementById('orderView').style.display = 'block';
       
       document.getElementById('orderMeta').innerHTML = `
@@ -548,47 +567,50 @@
       
       orderData.items.forEach(item => {
         const row = document.createElement('tr');
+        let serviceName = '';
+        switch(item.serviceType) {
+          case 'wash-press': serviceName = 'Wash & Press'; break;
+          case 'wash-starch-press': serviceName = 'Wash, Starch & Press'; break;
+          case 'starch-press': serviceName = 'Starch & Press Only'; break;
+          case 'press-only': serviceName = 'Press Only'; break;
+        }
+        
         row.innerHTML = `
           <td>${item.name}</td>
-          <td>${!item.washStarchPress && !item.starchPressOnly && !item.pressOnly ? item.quantity : '0'}</td>
-          <td>${item.washStarchPress ? item.quantity : '0'}</td>
-          <td>${item.starchPressOnly ? item.quantity : '0'}</td>
-          <td>${item.pressOnly ? item.quantity : '0'}</td>
+          <td>${item.quantity}</td>
+          <td>${serviceName}</td>
           <td class="price">${item.price.toLocaleString()}</td>
         `;
+        if (item.needsManualPrice) {
+          row.innerHTML += `<td class="note">(Price to be confirmed)</td>`;
+        }
         tbody.appendChild(row);
       });
       
       document.getElementById('viewOrderTotal').textContent = orderData.total.toLocaleString();
     }
 
-    // Check URL for order view
-    function checkForOrderView() {
-      const params = new URLSearchParams(window.location.search);
-      const orderId = params.get('order');
-      if (orderId) showOrder(orderId);
-    }
-
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
-      setupEventListeners();
-      updatePrices();
-      checkForOrderView();
-      
-      // Handle checkbox exclusivity
-      document.querySelectorAll('.wash-starch-press-toggle, .starch-press-toggle, .press-only-toggle').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-          if (this.checked) {
-            const row = this.closest('tr');
-            const checkboxes = row.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(cb => {
-              if (cb !== this) cb.checked = false;
-            });
-          }
-          updatePrices();
-        });
+      // Set up event listeners for price updates
+      document.querySelectorAll('.qty-input, .service-select, .others-input').forEach(input => {
+        input.addEventListener('change', updatePrices);
+        if (input.type !== 'select-one') {
+          input.addEventListener('input', updatePrices);
+        }
       });
+      
+      // Check if we should show an order immediately from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('order')) {
+        showOrder(urlParams.get('order'));
+      } else {
+        // Show the form by default
+        document.getElementById('orderForm').style.display = 'block';
+      }
+      
+      updatePrices();
     });
   </script>
 </body>
-</html>
+            </html>
