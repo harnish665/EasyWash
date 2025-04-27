@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyWash Laundry Services</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.4;
+      background-color: #f8f9fa;
+      color: #333;
+      padding: 15px;
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 16px;
+    }
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #0077b6;
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 1.5em;
+    }
+    .customer-info {
+      margin-bottom: 15px;
+      padding: 12px;
+      background-color: #f2f9ff;
+      border-radius: 6px;
+    }
+    .customer-info input {
+      width: 100%;
+      padding: 8px;
+      margin: 4px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+    .table-container {
+      max-height: 55vh;
+      overflow-y: auto;
+      margin: 15px 0;
+    }
+    .order-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+    .order-table thead th {
+      position: sticky;
+      top: 0;
+      background-color: #0077b6;
+      color: white;
+      padding: 10px;
+      text-align: left;
+      z-index: 10;
+      font-weight: normal;
+    }
+    .order-table td {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+    .order-table tr:nth-child(even) {
+      background-color: #f2f9ff;
+    }
+    input[type="number"] {
+      width: 50px;
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 45px;
+      height: 22px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 22px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 14px;
+      width: 14px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #00b4d8;
+    }
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #00b4d8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .submit-btn:hover {
+      background-color: #0096c7;
+    }
+    .others-input {
+      width: 100px;
+      padding: 5px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .confirmation {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: #e8f5e9;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .order-link {
+      display: inline-block;
+      margin: 8px 0;
+      padding: 8px 12px;
+      background: #0077b6;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      word-break: break-all;
+      font-size: 15px;
+    }
+    .order-view {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+    .total-row {
+      font-weight: bold;
+      background-color: #e3f2fd !important;
+    }
+    .price {
+      text-align: right;
+      padding-right: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 14px;
+    }
+    .others-note {
+      font-size: 13px;
+      color: #666;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="orderForm">
+    <h1>🧺 EasyWash Laundry Services</h1>
+    
+    <div class="customer-info">
+      <h3>Your Information</h3>
+      <label for="customerName">Full Name:</label>
+      <input type="text" id="customerName" placeholder="Your name" required>
+      <label for="customerPhone">Phone Number:</label>
+      <input type="tel" id="customerPhone" placeholder="Your phone" required>
+    </div>
+    
+    <div class="table-container">
+      <table class="order-table">
+        <thead>
+          <tr>
+            <th>Cloth Type</th>
+            <th>Wash & Press(Qty)</th>
+            <th>Starch & Press Only</th>
+            <th>Wash,Starch & Press</th>
+            <th>Press Only</th>
+            <th class="price">Price (₦)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Standard Items -->
+          <tr>
+            <td>Natives/Kaftans</td>
+            <td><input type="number" min="0" value="0" class="qty-input"></td>
+            <td><label class="switch"><input type="checkbox" class="starch-iron-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="starch-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="iron-toggle"><span class="slider"></span></label></td>
+            <td class="price item-price">0</td>
+          </tr>
+          <tr>
+            <td>Tops/shirt/Tees</td>
+            <td><input type="number" min="0" value="0" class="qty-input"></td>
+            <td><label class="switch"><input type="checkbox" class="starch-iron-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="starch-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="iron-toggle"><span class="slider"></span></label></td>
+            <td class="price item-price">0</td>
+          </tr>
+          <tr>
+            <td>Jean Trouser</td>
+            <td><input type="number" min="0" value="0" class="qty-input"></td>
+            <td><label class="switch"><input type="checkbox" class="starch-iron-toggle" disabled><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="starch-toggle" disabled><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="iron-toggle"><span class="slider"></span></label></td>
+            <td class="price item-price">0</td>
+          </tr>
+          <tr>
+            <td>Pant Trouser 👖</td>
+            <td><input type="number" min="0" value="0" class="qty-input"></td>
+            <td><label class="switch"><input type="checkbox" class="starch-iron-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="starch-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="iron-toggle"><span class="slider"></span></label></td>
+            <td class="price item-price">0</td>
+          </tr>
+          <tr>
+            <td>Complete Agbada</td>
+            <td><input type="number" min="0" value="0" class="qty-input"></td>
+            <td><label class="switch"><input type="checkbox" class="starch-iron-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="starch-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="iron-toggle"><span class="slider"></span></label></td>
+            <td class="price item-price">0</td>
+          </tr>
+          <tr>
+            <td>Jalabia</td>
+            <td><input type="number" min="0" value="0" class="qty-input"></td>
+            <td><label class="switch"><input type="checkbox" class="starch-iron-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="starch-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="iron-toggle"><span class="slider"></span></label></td>
+            <td class="price item-price">0</td>
+          </tr>
+          <tr>
+            <td>Shorts</td>
+            <td><input type="number" min="0" value="0" class="qty-input"></td>
+            <td><label class="switch"><input type="checkbox" class="starch-iron-toggle" disabled><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="starch-toggle" disabled><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="iron-toggle"><span class="slider"></span></label></td>
+            <td class="price item-price">0</td>
+          </tr>
+          <tr>
+            <td>Towel</td>
+            <td><input type="number" min="0" value="0" class="qty-input"></td>
+            <td><label class="switch"><input type="checkbox" class="starch-iron-toggle" disabled><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="starch-toggle" disabled><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="iron-toggle"><span class="slider"></span></label></td>
+            <td class="price item-price">0</td>
+          </tr>
+          <tr>
+            <td>Bedspread</td>
+            <td><input type="number" min="0" value="0" class="qty-input"></td>
+            <td><label class="switch"><input type="checkbox" class="starch-iron-toggle" disabled><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="starch-toggle" disabled><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="iron-toggle"><span class="slider"></span></label></td>
+            <td class="price item-price">0</td>
+          </tr>
+          <tr>
+            <td>Duvet</td>
+            <td><input type="number" min="0" value="0" class="qty-input"></td>
+            <td><label class="switch"><input type="checkbox" class="starch-iron-toggle" disabled><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="starch-toggle" disabled><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="iron-toggle"><span class="slider"></span></label></td>
+            <td class="price item-price">0</td>
+          </tr>
+          
+          <!-- Others Items -->
+          
+          <tr>
+            <td>Others (specify) <input type="text" class="others-input" placeholder="Item name"></td>
+            <td><input type="number" min="0" value="0" class="qty-input"></td>
+            <td><label class="switch"><input type="checkbox" class="starch-iron-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="starch-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="iron-toggle"><span class="slider"></span></label></td>
+            <td class="price item-price">0</td>
+          </tr>
+          <tr>
+            <td>Others (specify) <input type="text" class="others-input" placeholder="Item name"></td>
+            <td><input type="number" min="0" value="0" class="qty-input"></td>
+            <td><label class="switch"><input type="checkbox" class="starch-iron-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="starch-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="iron-toggle"><span class="slider"></span></label></td>
+            <td class="price item-price">0</td>
+          </tr>
+          <tr>
+            <td>Others (specify) <input type="text" class="others-input" placeholder="Item name"></td>
+            <td><input type="number" min="0" value="0" class="qty-input"></td>
+            <td><label class="switch"><input type="checkbox" class="starch-iron-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="starch-toggle"><span class="slider"></span></label></td>
+            <td><label class="switch"><input type="checkbox" class="iron-toggle"><span class="slider"></span></label></td>
+            <td class="price item-price">0</td>
+          </tr>
+          <tr>
+            <td colspan="6" class="others-note">Note: Price for "Others" items will be confirmed after inspection</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="total-display" style="text-align: right; margin: 12px 0; font-size: 1.1em;">
+      <strong>Total: ₦<span id="orderTotal">0</span></strong>
+    </div>
+    
+    <button class="submit-btn" onclick="submitOrder()">Submit Order</button>
+    
+    <div id="confirmation" class="confirmation">
+      <h3>✅ Order Submitted Successfully!</h3>
+      <p>View your order details:</p>
+      <a id="orderLink" class="order-link" href="#" target="_blank">Order Link</a>
+      <p>This link has been copied to your clipboard.</p>
+    </div>
+  </div>
+
+  <div class="container order-view" id="orderView">
+    <h1>🧺 Your Laundry Order</h1>
+    <div id="orderMeta"></div>
+    <div id="viewCustomerInfo" class="customer-info"></div>
+    <div class="table-container">
+      <table class="order-table" id="viewOrderTable">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Starch & Iron</th>
+            <th>Add Starch</th>
+            <th>Iron Only</th>
+            <th class="price">Price (₦)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr class="total-row">
+            <td colspan="5"><strong>Total</strong></td>
+            <td class="price"><strong id="viewOrderTotal">0</strong></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <button onclick="window.location.href='#'" class="submit-btn" style="margin-top:15px;">
+      Create New Order
+    </button>
+  </div>
+
+  <script>
+    // Pricing configuration
+    const PRICES = {
+      "Natives/Kaftans": {
+        "Wash & Iron": 600,
+        "Wash, Starch & Iron": 800,
+        "Starch & Iron": 500,
+        "Iron only": 400
+      },
+      "Tops/shirt/Tees": {
+        "Wash & Iron": 400,
+        "Wash, Starch & Iron": 500,
+        "Starch & Iron": 300,
+        "Iron only": 200
+      },
+      "Jean Trouser": {
+        "Wash & Iron": 400,
+        "Iron only": 200
+      },
+      "Pant Trouser": {
+        "Wash & Iron": 400,
+        "Wash, Starch & Iron": 500,
+        "Starch & Iron": 300,
+        "Iron only": 200
+      },
+      "Complete Agbada": {
+        "Wash & Iron": 1000,
+        "Wash, Starch & Iron": 1500,
+        "Starch & Iron": 900,
+        "Iron only": 700
+      },
+      "Jalabia": {
+        "Wash & Iron": 400,
+        "Wash, Starch & Iron": 500,
+        "Starch & Iron": 300,
+        "Iron only": 200
+      },
+      "Shorts": {
+        "Wash & Iron": 250,
+        "Iron only": 150
+      },
+      "Towel": {
+        "Wash & Iron": 500,
+        "Iron only": 300
+      },
+      "Bedspread": {
+        "Wash & Iron": 600,
+        "Iron only": 400
+      },
+      "Duvet": {
+        "Wash & Iron": 1500,
+        "Iron only": 1000
+      }
+    };
+
+    // Calculate price for a single item
+    function calculateItemPrice(item) {
+      // Return 0 for any "Others" items
+      if (item.name.includes("Others") || !Object.keys(PRICES).some(type => item.name.includes(type))) {
+        return 0;
+      }
+      
+      const clothType = Object.keys(PRICES).find(type => item.name.includes(type));
+      let serviceType = "";
+      
+      if (item.starchIron) {
+        serviceType = "Starch & Iron";
+      } else if (item.addStarch) {
+        serviceType = "Wash, Starch & Iron";
+      } else if (item.ironOnly) {
+        serviceType = "Iron only";
+      } else {
+        serviceType = "Wash & Iron";
+      }
+
+      const unitPrice = PRICES[clothType][serviceType] || 0;
+      return unitPrice * item.quantity;
+    }
+
+    // Update prices when inputs change
+    function setupEventListeners() {
+      document.querySelectorAll('.qty-input, .starch-iron-toggle, .starch-toggle, .iron-toggle, .others-input').forEach(input => {
+        input.addEventListener('change', updatePrices);
+        if (input.type !== 'checkbox') {
+          input.addEventListener('input', updatePrices);
+        }
+      });
+    }
+
+    // Update all prices in real-time
+    function updatePrices() {
+      let total = 0;
+      
+      document.querySelectorAll('tbody tr').forEach(row => {
+        if (row.classList.contains('total-row') || row.querySelector('.others-note')) return;
+        
+        const itemName = row.cells[0].textContent.replace('Others (specify)', '').trim();
+        const specInput = row.querySelector('.others-input');
+        const finalName = specInput?.value ? specInput.value : itemName;
+        
+        const quantity = parseInt(row.querySelector('.qty-input').value) || 0;
+        const starchIron = row.querySelector('.starch-iron-toggle').checked;
+        const addStarch = row.querySelector('.starch-toggle').checked;
+        const ironOnly = row.querySelector('.iron-toggle').checked;
+        
+        const price = calculateItemPrice({
+          name: finalName,
+          quantity: quantity,
+          starchIron: starchIron,
+          addStarch: addStarch,
+          ironOnly: ironOnly
+        });
+        
+        row.querySelector('.item-price').textContent = price.toLocaleString();
+        total += price;
+      });
+      
+      document.getElementById('orderTotal').textContent = total.toLocaleString();
+    }
+
+    // Submit order function
+    function submitOrder() {
+      const name = document.getElementById('customerName').value;
+      const phone = document.getElementById('customerPhone').value;
+      
+      if (!name || !phone) {
+        alert('Please enter your name and phone number');
+        return;
+      }
+
+      const order = {
+        date: new Date().toISOString(),
+        customer: {
+          name: name,
+          phone: phone,
+          address: document.getElementById('customerAddress').value || "Not provided"
+        },
+        items: [],
+        total: 0
+      };
+
+      document.querySelectorAll('tbody tr').forEach(row => {
+        if (row.classList.contains('total-row') || row.querySelector('.others-note')) return;
+        
+        const itemName = row.cells[0].textContent.replace('Others (specify)', '').trim();
+        const specInput = row.querySelector('.others-input');
+        const finalName = specInput?.value ? specInput.value : itemName;
+        
+        const quantity = parseInt(row.querySelector('.qty-input').value) || 0;
+        const starchIron = row.querySelector('.starch-iron-toggle').checked;
+        const addStarch = row.querySelector('.starch-toggle').checked;
+        const ironOnly = row.querySelector('.iron-toggle').checked;
+        
+        if (quantity > 0 || (specInput && specInput.value)) {
+          const item = {
+            name: finalName,
+            quantity: quantity,
+            starchIron: starchIron,
+            addStarch: addStarch,
+            ironOnly: ironOnly,
+            price: calculateItemPrice({
+              name: finalName,
+              quantity: quantity,
+              starchIron: starchIron,
+              addStarch: addStarch,
+              ironOnly: ironOnly
+            })
+          };
+          order.items.push(item);
+          order.total += item.price;
+        }
+      });
+
+      const orderId = 'order-' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem(orderId, JSON.stringify(order));
+      
+      const viewLink = `${window.location.href.split('?')[0]}?order=${orderId}`;
+      document.getElementById('orderLink').textContent = `Order #${orderId}`;
+      document.getElementById('orderLink').href = viewLink;
+      document.getElementById('confirmation').style.display = 'block';
+      navigator.clipboard.writeText(viewLink);
+      
+      // Reset form
+      document.getElementById('customerName').value = '';
+      document.getElementById('customerPhone').value = '';
+      document.getElementById('customerAddress').value = '';
+      document.querySelectorAll('input[type="number"]').forEach(input => input.value = 0);
+      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
+      document.querySelectorAll('.others-input').forEach(input => input.value = '');
+      updatePrices();
+    }
+
+    // Show order view
+    function showOrder(orderId) {
+      const orderData = JSON.parse(localStorage.getItem(orderId));
+      if (!orderData) return;
+      
+      document.getElementById('orderForm').style.display = 'none';
+      document.getElementById('orderView').style.display = 'block';
+      
+      document.getElementById('orderMeta').innerHTML = `
+        <p><strong>Order ID:</strong> ${orderId}</p>
+        <p><strong>Date:</strong> ${new Date(orderData.date).toLocaleString()}</p>
+      `;
+      
+      document.getElementById('viewCustomerInfo').innerHTML = `
+        <h3>Customer Information</h3>
+        <p><strong>Name:</strong> ${orderData.customer.name}</p>
+        <p><strong>Phone:</strong> ${orderData.customer.phone}</p>
+        <p><strong>Address:</strong> ${orderData.customer.address}</p>
+      `;
+      
+      const tbody = document.querySelector('#viewOrderTable tbody');
+      tbody.innerHTML = '';
+      
+      orderData.items.forEach(item => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>${item.quantity}</td>
+          <td>${item.starchIron ? '✅' : '❌'}</td>
+          <td>${item.addStarch ? '✅' : '❌'}</td>
+          <td>${item.ironOnly ? '✅' : '❌'}</td>
+          <td class="price">${item.price.toLocaleString()}</td>
+        `;
+        tbody.appendChild(row);
+      });
+      
+      document.getElementById('viewOrderTotal').textContent = orderData.total.toLocaleString();
+    }
+
+    // Check URL for order view
+    function checkForOrderView() {
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get('order');
+      if (orderId) showOrder(orderId);
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      setupEventListeners();
+      updatePrices();
+      checkForOrderView();
+      
+      // Disable starch options when starch & iron is selected
+      document.querySelectorAll('.starch-iron-toggle').forEach(toggle => {
+        toggle.addEventListener('change', function() {
+          const row = this.closest('tr');
+          const starchToggle = row.querySelector('.starch-toggle');
+          if (this.checked) {
+            starchToggle.checked = false;
+            starchToggle.disabled = true;
+          } else {
+            starchToggle.disabled = false;
+          }
+          updatePrices();
+        });
+      });
+    });
+  </script>
+</body>
+</html>
