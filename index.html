@@ -17,112 +17,69 @@
     }
     .container {
       background-color: white;
-      padding: 20px;
+      padding: 15px;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
     h1 {
       color: #0077b6;
       text-align: center;
-      margin-bottom: 15px;
-      font-size: 1.5em;
+      margin-bottom: 10px;
+      font-size: 1.3em;
     }
     .customer-info {
-      margin-bottom: 15px;
-      padding: 12px;
+      margin-bottom: 10px;
+      padding: 10px;
       background-color: #f2f9ff;
       border-radius: 6px;
     }
     .customer-info input {
       width: 100%;
-      padding: 8px;
+      padding: 6px;
       margin: 4px 0;
       border: 1px solid #ccc;
       border-radius: 4px;
-      font-size: 15px;
-    }
-    .table-container {
-      max-height: 55vh;
-      overflow-y: auto;
-      margin: 15px 0;
+      font-size: 14px;
     }
     .order-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 15px;
+      font-size: 14px;
+      margin: 10px 0;
     }
     .order-table thead th {
-      position: sticky;
-      top: 0;
       background-color: #0077b6;
       color: white;
-      padding: 10px;
+      padding: 8px;
       text-align: left;
-      z-index: 10;
       font-weight: normal;
     }
     .order-table td {
-      padding: 8px;
+      padding: 6px;
       border-bottom: 1px solid #ddd;
     }
     .order-table tr:nth-child(even) {
       background-color: #f2f9ff;
     }
     input[type="number"] {
-      width: 50px;
-      padding: 6px;
+      width: 40px;
+      padding: 4px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      font-size: 14px;
+      font-size: 13px;
     }
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 45px;
-      height: 22px;
-    }
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: .4s;
-      border-radius: 22px;
-    }
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 14px;
-      width: 14px;
-      left: 4px;
-      bottom: 4px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-    }
-    input:checked + .slider {
-      background-color: #00b4d8;
-    }
-    input:checked + .slider:before {
-      transform: translateX(22px);
+    input[type="checkbox"] {
+      transform: scale(0.9);
     }
     .submit-btn {
       display: block;
       width: 100%;
-      padding: 10px;
+      padding: 8px;
       background-color: #00b4d8;
       color: white;
       border: none;
       border-radius: 4px;
-      font-size: 16px;
+      font-size: 15px;
       cursor: pointer;
       transition: background-color 0.3s;
     }
@@ -130,36 +87,36 @@
       background-color: #0096c7;
     }
     .others-input {
-      width: 100px;
-      padding: 5px;
-      margin-top: 4px;
+      width: 80px;
+      padding: 4px;
+      margin-top: 2px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      font-size: 14px;
+      font-size: 13px;
     }
     .confirmation {
       display: none;
-      margin-top: 15px;
-      padding: 15px;
+      margin-top: 10px;
+      padding: 10px;
       background: #e8f5e9;
       border-radius: 6px;
       text-align: center;
     }
     .order-link {
       display: inline-block;
-      margin: 8px 0;
-      padding: 8px 12px;
+      margin: 6px 0;
+      padding: 6px 10px;
       background: #0077b6;
       color: white;
       text-decoration: none;
       border-radius: 4px;
       word-break: break-all;
-      font-size: 15px;
+      font-size: 14px;
     }
     .order-view {
       display: none;
-      margin-top: 20px;
-      padding: 15px;
+      margin-top: 15px;
+      padding: 10px;
       background: white;
       border: 1px solid #ddd;
       border-radius: 6px;
@@ -170,17 +127,21 @@
     }
     .price {
       text-align: right;
-      padding-right: 15px;
+      padding-right: 10px;
     }
     label {
       display: block;
-      margin-bottom: 3px;
-      font-size: 14px;
+      margin-bottom: 2px;
+      font-size: 13px;
     }
     .others-note {
-      font-size: 13px;
+      font-size: 12px;
       color: #666;
       font-style: italic;
+    }
+    .checkbox-label {
+      display: inline-block;
+      margin-left: 3px;
     }
   </style>
 </head>
@@ -194,146 +155,142 @@
       <input type="text" id="customerName" placeholder="Your name" required>
       <label for="customerPhone">Phone Number:</label>
       <input type="tel" id="customerPhone" placeholder="Your phone" required>
-      <label for="customerAddress">Delivery Address:</label>
-      <input type="text" id="customerAddress" placeholder="Optional">
     </div>
     
-    <div class="table-container">
-      <table class="order-table">
-        <thead>
-          <tr>
-            <th>Cloth Type</th>
-            <th>Wash & Press(Qty)</th>
-            <th>Wash,Starch & Press</th>
-            <th>Starch & Press Only</th>
-            <th>Press Only</th>
-            <th class="price">Price (₦)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Standard Items -->
-          <tr>
-            <td>Natives/Kaftans</td>
-            <td><input type="number" min="0" value="0" class="qty-input"></td>
-            <td><label class="switch"><input type="checkbox" class="wash-starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="press-only-toggle"><span class="slider"></span></label></td>
-            <td class="price item-price">0</td>
-          </tr>
-          <tr>
-            <td>Tops/shirt/Tees</td>
-            <td><input type="number" min="0" value="0" class="qty-input"></td>
-            <td><label class="switch"><input type="checkbox" class="wash-starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="press-only-toggle"><span class="slider"></span></label></td>
-            <td class="price item-price">0</td>
-          </tr>
-          <tr>
-            <td>Jean Trouser</td>
-            <td><input type="number" min="0" value="0" class="qty-input"></td>
-            <td><label class="switch"><input type="checkbox" class="wash-starch-press-toggle" disabled><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="starch-press-toggle" disabled><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="press-only-toggle"><span class="slider"></span></label></td>
-            <td class="price item-price">0</td>
-          </tr>
-          <tr>
-            <td>Pant Trouser 👖</td>
-            <td><input type="number" min="0" value="0" class="qty-input"></td>
-            <td><label class="switch"><input type="checkbox" class="wash-starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="press-only-toggle"><span class="slider"></span></label></td>
-            <td class="price item-price">0</td>
-          </tr>
-          <tr>
-            <td>Complete Agbada</td>
-            <td><input type="number" min="0" value="0" class="qty-input"></td>
-            <td><label class="switch"><input type="checkbox" class="wash-starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="press-only-toggle"><span class="slider"></span></label></td>
-            <td class="price item-price">0</td>
-          </tr>
-          <tr>
-            <td>Jalabia</td>
-            <td><input type="number" min="0" value="0" class="qty-input"></td>
-            <td><label class="switch"><input type="checkbox" class="wash-starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="press-only-toggle"><span class="slider"></span></label></td>
-            <td class="price item-price">0</td>
-          </tr>
-          <tr>
-            <td>Shorts</td>
-            <td><input type="number" min="0" value="0" class="qty-input"></td>
-            <td><label class="switch"><input type="checkbox" class="wash-starch-press-toggle" disabled><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="starch-press-toggle" disabled><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="press-only-toggle"><span class="slider"></span></label></td>
-            <td class="price item-price">0</td>
-          </tr>
-          <tr>
-            <td>Towel</td>
-            <td><input type="number" min="0" value="0" class="qty-input"></td>
-            <td><label class="switch"><input type="checkbox" class="wash-starch-press-toggle" disabled><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="starch-press-toggle" disabled><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="press-only-toggle"><span class="slider"></span></label></td>
-            <td class="price item-price">0</td>
-          </tr>
-          <tr>
-            <td>Bedspread</td>
-            <td><input type="number" min="0" value="0" class="qty-input"></td>
-            <td><label class="switch"><input type="checkbox" class="wash-starch-press-toggle" disabled><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="starch-press-toggle" disabled><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="press-only-toggle"><span class="slider"></span></label></td>
-            <td class="price item-price">0</td>
-          </tr>
-          <tr>
-            <td>Duvet</td>
-            <td><input type="number" min="0" value="0" class="qty-input"></td>
-            <td><label class="switch"><input type="checkbox" class="wash-starch-press-toggle" disabled><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="starch-press-toggle" disabled><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="press-only-toggle"><span class="slider"></span></label></td>
-            <td class="price item-price">0</td>
-          </tr>
-          
-          <!-- Additional Others Items -->
-          <tr>
-            <td>Others 1 <input type="text" class="others-input" placeholder="Item name"></td>
-            <td><input type="number" min="0" value="0" class="qty-input"></td>
-            <td><label class="switch"><input type="checkbox" class="wash-starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="press-only-toggle"><span class="slider"></span></label></td>
-            <td class="price item-price">0</td>
-          </tr>
-          <tr>
-            <td>Others 2 <input type="text" class="others-input" placeholder="Item name"></td>
-            <td><input type="number" min="0" value="0" class="qty-input"></td>
-            <td><label class="switch"><input type="checkbox" class="wash-starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="press-only-toggle"><span class="slider"></span></label></td>
-            <td class="price item-price">0</td>
-          </tr>
-          <tr>
-            <td>Others 3 <input type="text" class="others-input" placeholder="Item name"></td>
-            <td><input type="number" min="0" value="0" class="qty-input"></td>
-            <td><label class="switch"><input type="checkbox" class="wash-starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="press-only-toggle"><span class="slider"></span></label></td>
-            <td class="price item-price">0</td>
-          </tr>
-          <tr>
-            <td>Others 4 <input type="text" class="others-input" placeholder="Item name"></td>
-            <td><input type="number" min="0" value="0" class="qty-input"></td>
-            <td><label class="switch"><input type="checkbox" class="wash-starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="starch-press-toggle"><span class="slider"></span></label></td>
-            <td><label class="switch"><input type="checkbox" class="press-only-toggle"><span class="slider"></span></label></td>
-            <td class="price item-price">0</td>
-          </tr>
-          <tr>
-            <td colspan="6" class="others-note">Note: Price for "Others" items will be confirmed after inspection</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table class="order-table">
+      <thead>
+        <tr>
+          <th>Cloth Type</th>
+          <th>Wash & Press</th>
+          <th>Wash,Starch & Press</th>
+          <th>Starch & Press Only</th>
+          <th>Press Only</th>
+          <th class="price">Price (₦)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Standard Items -->
+        <tr>
+          <td>Natives/Kaftans</td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
+          <td><input type="checkbox" class="starch-press-toggle"></td>
+          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td>Tops/shirt/Tees</td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
+          <td><input type="checkbox" class="starch-press-toggle"></td>
+          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td>Jean Trouser</td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td><input type="checkbox" class="wash-starch-press-toggle" disabled></td>
+          <td><input type="checkbox" class="starch-press-toggle" disabled></td>
+          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td>Pant Trouser 👖</td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
+          <td><input type="checkbox" class="starch-press-toggle"></td>
+          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td>Complete Agbada</td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
+          <td><input type="checkbox" class="starch-press-toggle"></td>
+          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td>Jalabia</td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
+          <td><input type="checkbox" class="starch-press-toggle"></td>
+          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td>Shorts</td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td><input type="checkbox" class="wash-starch-press-toggle" disabled></td>
+          <td><input type="checkbox" class="starch-press-toggle" disabled></td>
+          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td>Towel</td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td><input type="checkbox" class="wash-starch-press-toggle" disabled></td>
+          <td><input type="checkbox" class="starch-press-toggle" disabled></td>
+          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td>Bedspread</td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td><input type="checkbox" class="wash-starch-press-toggle" disabled></td>
+          <td><input type="checkbox" class="starch-press-toggle" disabled></td>
+          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td>Duvet</td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td><input type="checkbox" class="wash-starch-press-toggle" disabled></td>
+          <td><input type="checkbox" class="starch-press-toggle" disabled></td>
+          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td class="price item-price">0</td>
+        </tr>
+        
+        <!-- Additional Others Items -->
+        <tr>
+          <td>Others 1 <input type="text" class="others-input" placeholder="Item name"></td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
+          <td><input type="checkbox" class="starch-press-toggle"></td>
+          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td>Others 2 <input type="text" class="others-input" placeholder="Item name"></td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
+          <td><input type="checkbox" class="starch-press-toggle"></td>
+          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td>Others 3 <input type="text" class="others-input" placeholder="Item name"></td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
+          <td><input type="checkbox" class="starch-press-toggle"></td>
+          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td>Others 4 <input type="text" class="others-input" placeholder="Item name"></td>
+          <td><input type="number" min="0" value="0" class="qty-input"></td>
+          <td><input type="checkbox" class="wash-starch-press-toggle"></td>
+          <td><input type="checkbox" class="starch-press-toggle"></td>
+          <td><input type="checkbox" class="press-only-toggle"></td>
+          <td class="price item-price">0</td>
+        </tr>
+        <tr>
+          <td colspan="6" class="others-note">Note: Price for "Others" items will be confirmed after inspection</td>
+        </tr>
+      </tbody>
+    </table>
     
-    <div class="total-display" style="text-align: right; margin: 12px 0; font-size: 1.1em;">
+    <div class="total-display" style="text-align: right; margin: 10px 0; font-size: 1em;">
       <strong>Total: ₦<span id="orderTotal">0</span></strong>
     </div>
     
@@ -351,28 +308,26 @@
     <h1>🧺 Your Laundry Order</h1>
     <div id="orderMeta"></div>
     <div id="viewCustomerInfo" class="customer-info"></div>
-    <div class="table-container">
-      <table class="order-table" id="viewOrderTable">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Wash & Press</th>
-            <th>Wash,Starch & Press</th>
-            <th>Starch & Press Only</th>
-            <th>Press Only</th>
-            <th class="price">Price (₦)</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-        <tfoot>
-          <tr class="total-row">
-            <td colspan="5"><strong>Total</strong></td>
-            <td class="price"><strong id="viewOrderTotal">0</strong></td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-    <button onclick="window.location.href='#'" class="submit-btn" style="margin-top:15px;">
+    <table class="order-table" id="viewOrderTable">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Wash & Press</th>
+          <th>Wash,Starch & Press</th>
+          <th>Starch & Press Only</th>
+          <th>Press Only</th>
+          <th class="price">Price (₦)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+      <tfoot>
+        <tr class="total-row">
+          <td colspan="5"><strong>Total</strong></td>
+          <td class="price"><strong id="viewOrderTotal">0</strong></td>
+        </tr>
+      </tfoot>
+    </table>
+    <button onclick="window.location.href='#'" class="submit-btn" style="margin-top:10px;">
       Create New Order
     </button>
   </div>
@@ -434,7 +389,6 @@
 
     // Calculate price for a single item
     function calculateItemPrice(item) {
-      // Return 0 for any "Others" items
       if (item.name.includes("Others") || !Object.keys(PRICES).some(type => item.name.includes(type))) {
         return 0;
       }
@@ -511,8 +465,7 @@
         date: new Date().toISOString(),
         customer: {
           name: name,
-          phone: phone,
-          address: document.getElementById('customerAddress').value || "Not provided"
+          phone: phone
         },
         items: [],
         total: 0
@@ -565,7 +518,6 @@
       // Reset form
       document.getElementById('customerName').value = '';
       document.getElementById('customerPhone').value = '';
-      document.getElementById('customerAddress').value = '';
       document.querySelectorAll('input[type="number"]').forEach(input => input.value = 0);
       document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
       document.querySelectorAll('.others-input').forEach(input => input.value = '');
@@ -589,7 +541,6 @@
         <h3>Customer Information</h3>
         <p><strong>Name:</strong> ${orderData.customer.name}</p>
         <p><strong>Phone:</strong> ${orderData.customer.phone}</p>
-        <p><strong>Address:</strong> ${orderData.customer.address}</p>
       `;
       
       const tbody = document.querySelector('#viewOrderTable tbody');
@@ -624,18 +575,20 @@
       updatePrices();
       checkForOrderView();
       
-      // Disable conflicting options
-      document.querySelectorAll('.wash-starch-press-toggle, .starch-press-toggle, .press-only-toggle').forEach(toggle => {
-        toggle.addEventListener('change', function() {
-          const row = this.closest('tr');
-          const qtyInput = row.querySelector('.qty-input');
-          
-          
-          
+      // Handle checkbox exclusivity
+      document.querySelectorAll('.wash-starch-press-toggle, .starch-press-toggle, .press-only-toggle').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          if (this.checked) {
+            const row = this.closest('tr');
+            const checkboxes = row.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+              if (cb !== this) cb.checked = false;
+            });
+          }
           updatePrices();
         });
       });
     });
   </script>
 </body>
-      </html>
+</html>
